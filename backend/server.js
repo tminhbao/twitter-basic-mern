@@ -1,9 +1,17 @@
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const PORT = 5000;
 
+// Connect DB
+const { connectDB } = require("./config/database");
+connectDB();
+
+// Cors
 app.use(cors());
+
+// Body Parser
+app.use(express.json());
 
 app.get("/", (req, res, next) => {
   res.status(200).json({
@@ -19,6 +27,6 @@ app.get("/", (req, res, next) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port: ${PORT}`);
+app.listen(process.env.PORT, () => {
+  console.log(`Server is running on port: ${process.env.PORT}`);
 });
