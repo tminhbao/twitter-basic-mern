@@ -18,6 +18,7 @@ exports.getAllPosts = async (req, res, next) => {
 exports.createOnePost = async (req, res, next) => {
   try {
     const { userId } = req.user;
+    console.log(userId);
     const post = Post.create({ ...req.body, author: userId });
     res.status(200).json({
       status: "success",
