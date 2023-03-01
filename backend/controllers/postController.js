@@ -11,14 +11,13 @@ exports.getAllPosts = async (req, res, next) => {
       },
     });
   } catch (error) {
-    res.json({ error });
+    next(error);
   }
 };
 
 exports.createOnePost = async (req, res, next) => {
   try {
     const { userId } = req.user;
-    console.log(userId);
     const post = Post.create({ ...req.body, author: userId });
     res.status(200).json({
       status: "success",
@@ -27,7 +26,7 @@ exports.createOnePost = async (req, res, next) => {
       },
     });
   } catch (error) {
-    res.json({ error });
+    next(error);
   }
 };
 
@@ -46,7 +45,7 @@ exports.updateOnePost = async (req, res, next) => {
       },
     });
   } catch (error) {
-    res.json({ error });
+    throw next(error);
   }
 };
 
@@ -59,6 +58,6 @@ exports.deleteOnePost = async (req, res, next) => {
       message: "Post was deleted successfully",
     });
   } catch (error) {
-    res.json({ error });
+    next(error);
   }
 };
